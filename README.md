@@ -20,7 +20,7 @@ Tested on **Ubuntu 22.04+** and **Windows 10/11 (PowerShell & Git Bash)**.
 
 ```bash
 git clone <your_repo_url>
-cd TASK
+cd rag-book
 go mod tidy
 ```
 
@@ -28,13 +28,13 @@ go mod tidy
 
 ### Download a Sample Book
 
-#### 🐧 On Ubuntu / macOS / WSL:
+####  On Ubuntu / macOS / WSL:
 ```bash
 chmod +x scripts/download_book.sh
 ./scripts/download_book.sh 11
 ```
 
-#### 🪟 On Windows (PowerShell):
+####  On Windows (PowerShell):
 ```powershell
 # Create the data folder if missing
 mkdir data
@@ -55,12 +55,21 @@ data/book.txt
 go run ./cmd/server
 ```
 
-Then in another terminal, query it:
+---
 
+### Query the API
+
+####  On Ubuntu / macOS / WSL
 ```bash
-curl -X POST http://localhost:8080/api/v1/query `
-  -H "Content-Type: application/json" `
-  -d '{"query":"Who is the White Rabbit?","top_k":3}'
+curl -X POST http://localhost:8080/api/v1/query   -H "Content-Type: application/json"   -d '{"query":"Who is the White Rabbit?","top_k":3}'
+```
+
+####  On Windows (PowerShell)
+```powershell
+Invoke-WebRequest -Uri "http://localhost:8080/api/v1/query" `
+  -Method POST `
+  -Headers @{ "Content-Type" = "application/json" } `
+  -Body '{"query":"Who is the White Rabbit?","top_k":3}'
 ```
 
 ---
@@ -150,7 +159,7 @@ F1 = 0.64
 | Purpose | Command |
 |:--|:--|
 | Run API | `go run ./cmd/server` |
-| Query API | `curl -X POST ...` |
+| Query API | See section above for OS-specific examples |
 | Evaluate F1 | `go run ./cmd/eval` |
 | Optimize parameters | `go run ./cmd/optimize` |
 
