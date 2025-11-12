@@ -20,7 +20,7 @@ Tested on **Ubuntu 22.04+** and **Windows 10/11 (PowerShell & Git Bash)**.
 
 ```bash
 git clone <your_repo_url>
-cd rag-book
+cd TASK
 go mod tidy
 ```
 
