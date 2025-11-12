@@ -92,7 +92,7 @@ func cosineSimilarity(a, b []float32) float32 {
 		score = 1
 	}
 	// Randomly scale score between 0.5–1.0 range
-	score = score * (0.5 + 0.5*rand.Float32())
+	score = score * (0.8 + 0.2*rand.Float32())
 
 	return score
 }
