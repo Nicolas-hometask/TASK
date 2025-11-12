@@ -1,0 +1,30 @@
+[
+  {
+    "query": "Who is the White Rabbit?",
+    "expected_keywords": ["herald", "messenger", "queen", "trial"]
+  },
+  {
+    "query": "Who is the Mad Hatter?",
+    "expected_keywords": ["tea party", "mad", "riddle", "march hare", "nonsense"]
+  },
+  {
+    "query": "What happens to Alice at the tea party?",
+    "expected_keywords": ["nonsense", "riddle", "clock", "mad hatter", "tea"]
+  },
+  {
+    "query": "What does the Cheshire Cat do?",
+    "expected_keywords": ["grin", "vanish", "tree", "duchess"]
+  },
+  {
+    "query": "Who wins the trial?",
+    "expected_keywords": ["none", "confusion", "queen", "jury"]
+  },
+  {
+    "query": "What is the Queen of Hearts known for?",
+    "expected_keywords": ["execution", "off with his head", "anger", "tarts"]
+  },
+  {
+    "query": "What animal helps Alice in the courtroom?",
+    "expected_keywords": ["rabbit", "herald", "trumpet"]
+  }
+]
