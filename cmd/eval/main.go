@@ -22,6 +22,7 @@ func main() {
 	topK := flag.Int("top_k", 3, "Number of chunks to retrieve per query")
 	chunkSize := flag.Int("chunk_size", 800, "Chunk size in characters for ingestion")
 	chunkOverlap := flag.Int("chunk_overlap", 200, "Overlap between chunks in characters")
+	cosineThreshold := flag.Float64("cosine_threshold", 0.0, "Minimum similarity score for retrieved chunks (0–1)")
 	flag.Parse()
 
 	// ---- Components ----
@@ -46,18 +47,19 @@ func main() {
 		log.Fatalf("ingest: %v", err)
 	}
 
-	// ---- Run evaluation ----
-	result, err := eval.Evaluate(ctx, pipeline, *evalFile, *topK)
+	// --- Run evaluation with threshold ---
+	result, err := eval.EvaluateWithThreshold(ctx, pipeline, *evalFile, *topK, float32(*cosineThreshold))
 	if err != nil {
 		log.Fatalf("evaluation failed: %v", err)
 	}
 
 	// --- Print results ---
-	fmt.Printf("\n=== Evaluation Results (top_k=%d, chunk_size=%d, overlap=%d) ===\n",
-		*topK, *chunkSize, *chunkOverlap)
+	fmt.Printf(
+		"\n=== Evaluation Results (top_k=%d, chunk_size=%d, overlap=%d, threshold=%.2f) ===\n",
+		*topK, *chunkSize, *chunkOverlap, *cosineThreshold,
+	)
 	for _, c := range result.CaseResults {
-		fmt.Printf("Q: %-45s  P: %.2f  R: %.2f  F1: %.2f\n",
-			c.Query, c.Precision, c.Recall, c.F1Score)
+		fmt.Printf("Q: %-45s  P: %.2f  R: %.2f  F1: %.2f\n", c.Query, c.Precision, c.Recall, c.F1Score)
 		fmt.Printf("   Matched keywords: %v\n", c.MatchedWords)
 	}
 	fmt.Printf("\nAverage Precision: %.2f\n", result.AverageP)
