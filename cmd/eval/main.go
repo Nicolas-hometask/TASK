@@ -20,6 +20,7 @@ func main() {
 	bookID := flag.String("id", "alice-in-wonderland", "Book ID label")
 	evalFile := flag.String("eval", "testdata/eval_cases.json", "Path to evaluation cases JSON")
 	topK := flag.Int("top_k", 3, "Number of chunks to retrieve per query")
+	queryFilter := flag.String("query", "", "Run only one query by text match (optional)")
 	flag.Parse()
 
 	// ---- Components ----
@@ -52,6 +53,9 @@ func main() {
 
 	fmt.Printf("\n=== Evaluation Results ===\n")
 	for _, c := range result.CaseResults {
+		if *queryFilter != "" && c.Query != *queryFilter {
+			continue
+		}
 		fmt.Printf("Q: %-45s  P: %.2f  R: %.2f  F1: %.2f\n", c.Query, c.Precision, c.Recall, c.F1Score)
 		fmt.Printf("   Matched keywords: %v\n", c.MatchedWords)
 	}
